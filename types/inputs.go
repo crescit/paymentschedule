@@ -13,7 +13,7 @@ type PaymentInput struct {
 	Amount        int
 	FeePercentage int
 	StartDate     time.Time
-	Duration      time.Duration
+	Duration      int
 	Terms         Terms
 	Currency      string
 }
