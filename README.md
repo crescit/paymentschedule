@@ -2,6 +2,25 @@
 A function in my preferred programming language (Go) that generates the
 estimated payment plan schedule for a set of parameters. Function may be added to an iFrame. 
 
+# Running
+To execute run go run main.go, this will open up a web service running on port 8080
+Hit localhost:8080/payment with a POST request with the body following the following struct:
+const (
+	net          Terms = 1
+	installments       = 2
+)
+
+type PaymentInput struct {
+	Amount        int
+	FeePercentage int
+	StartDate     time.Time
+	Duration      int
+	Terms         Terms -> where terms is either 1 or 2 matching the above
+	Currency      string
+}
+
+
+
 # Testing
 To test the payments package run go test -v ./payments/ in the main directory
 
