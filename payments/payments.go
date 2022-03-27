@@ -13,10 +13,10 @@ func HandlePayment(payment types.PaymentInput) error {
 	return nil
 }
 
-func HandleNetPayment() {
-
+func HandleNetPayment(payment types.PaymentInput) ([]types.DueOutput, error) {
+	return nil, nil
 }
 
-func HandleInstallmentPayment() {
-
+func HandleInstallmentPayment(payment types.PaymentInput) ([]types.DueOutput, error) {
+	return nil, nil
 }

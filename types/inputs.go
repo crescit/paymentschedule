@@ -1,4 +1,4 @@
-package inputs
+package types
 
 import "time"
 
@@ -16,4 +16,4 @@ type PaymentInput struct {
 	Duration      time.Duration
 	Terms         Terms
 	Currency      string
-)
+}
