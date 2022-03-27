@@ -16,4 +16,4 @@ type PaymentInput struct {
 	Duration      time.Duration
 	Terms         Terms
 	Currency      string
-}
+)
