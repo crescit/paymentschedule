@@ -1,19 +1,19 @@
-package inputs
+package types
 
 import "time"
 
 type Terms int64
 
 const (
-	net          Terms = 0
-	installments       = 1
+	net          Terms = 1
+	installments       = 2
 )
 
-type InstallmentInput struct {
-	amount        int
-	feePercentage int
-	startDate     time.Time
-	duration      time.Duration
-	terms         Terms
-	currency      string
+type PaymentInput struct {
+	Amount        int
+	FeePercentage int
+	StartDate     time.Time
+	Duration      time.Duration
+	Terms         Terms
+	Currency      string
 }
