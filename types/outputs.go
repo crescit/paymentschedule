@@ -1,7 +1,7 @@
 package types
 
 type DueOutput struct {
-	date     string
-	amount   int
-	currency string
+	Date     string
+	Amount   int
+	Currency string
 }
