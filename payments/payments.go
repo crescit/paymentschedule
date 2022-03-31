@@ -3,6 +3,7 @@ package payments
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 
 	types "github.com/crescit/paymentschedule/types"
 )
@@ -34,7 +35,7 @@ func HandleNetPayment(payment types.PaymentInput) ([]types.DueOutput, error) {
 	var netPayment types.DueOutput
 	netPayment.Amount = startVal + int(interest)
 	netPayment.Currency = payment.Currency
-	netPayment.Date = endDate.Format("2006-02-01")
+	netPayment.Date = ParseDateForWeekend(endDate)
 	netPayments = append(netPayments, netPayment)
 	return netPayments, nil
 }
@@ -56,22 +57,25 @@ func HandleInstallmentPayment(payment types.PaymentInput) ([]types.DueOutput, er
 	return output, nil
 }
 
-// write up is confusing 45 days after 1-12 would be 2-26 adjusting for business days doesn't give 2-28 either???
-// func AddBusinessDays(startDate time.Time, durationInDays int) time.Time {
-// 	t := startDate
-// 	days := 0
-// 	for {
-// 		fmt.Printf("%v  _ %v \n", days, durationInDays)
-// 		if days >= durationInDays {
-// 			break
-// 		}
-// 		if t.Weekday() != time.Saturday && t.Weekday() != time.Sunday {
-// 			days++
-// 		}
-// 		t = t.Add(time.Hour * 24)
-// 	}
-// 	return t
-// }
+func ParseDateForWeekend(date time.Time) string {
+	allowedDates := make(map[string]bool, 0)
+	fmt.Print(date.Weekday())
+	allowedDates["Monday"] = true
+	allowedDates["Tuesday"] = true
+	allowedDates["Wednesday"] = true
+	allowedDates["Thursday"] = true
+	allowedDates["Friday"] = true
+
+	returnDate := date
+
+	check := allowedDates[returnDate.Weekday().String()]
+	for !check {
+		returnDate = returnDate.AddDate(0, 0, 1)
+		check = allowedDates[returnDate.Weekday().String()]
+	}
+
+	return returnDate.Format("2006-02-01")
+}
 
 func PrintInJson(dueoutput []types.DueOutput) string {
 	output, err := json.Marshal(dueoutput)

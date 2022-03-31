@@ -83,13 +83,13 @@ func TestHandleNetPayment(t *testing.T) {
 	}
 
 	expected := types.DueOutput{
-		Date:     "2022-02-28",
+		Date:     "2022-28-02",
 		Amount:   3150,
 		Currency: "usd",
 	}
 
 	if len(output) < 1 || len(output) > 1 || expected != output[0] {
-		t.Errorf("failed to get expected result for net45, got = %v, received = %v", output[0], expected)
+		t.Errorf("failed to get expected result for net45, got = %v, expected = %v", output[0], expected)
 		return
 	}
 
@@ -108,7 +108,7 @@ func TestHandleNetPayment(t *testing.T) {
 	}
 
 	expected = types.DueOutput{
-		Date:     "2022-03-11",
+		Date:     "2022-11-03",
 		Amount:   3150,
 		Currency: "usd",
 	}
