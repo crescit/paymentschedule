@@ -43,13 +43,15 @@ func HandleInstallmentPayment(payment types.PaymentInput) ([]types.DueOutput, er
 	totalPayments := 1 + (payment.Duration / 30 % 30)
 	output := make([]types.DueOutput, totalPayments)
 	interest := float64(payment.Amount) * (float64(payment.FeePercentage) / 100)
-	total := payment.Amount + int(interest)/totalPayments
+	total := int(payment.Amount/totalPayments) + int(interest)/totalPayments
+	newDate := payment.StartDate
 	for i := 0; i < totalPayments; i++ {
 		var installmentPayment types.DueOutput
 		installmentPayment.Amount = total
 		installmentPayment.Currency = payment.Currency
-		installmentPayment.Date = payment.StartDate.AddDate(0, 0, i*30).Format("2006-02-01")
+		installmentPayment.Date = newDate.Format("2006-02-01")
 		output[i] = installmentPayment
+		newDate = newDate.AddDate(0, 0, 30)
 	}
 	return output, nil
 }

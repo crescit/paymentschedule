@@ -137,7 +137,7 @@ func TestHandleInstallmentPayment(t *testing.T) {
 		t.Errorf("error encountered during handleinstallmentpayment err = %v", err)
 	}
 
-	if len(output) == 3 {
+	if len(output) != 3 || output[0].Amount != 1050 || output[0].Date != "2022-10-01" {
 		t.Errorf("failed to get expected result for intall60, output = %v", output)
 		return
 	}
